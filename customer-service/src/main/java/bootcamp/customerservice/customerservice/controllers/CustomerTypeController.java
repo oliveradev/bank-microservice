@@ -14,7 +14,7 @@ import reactor.core.publisher.Mono;
 import java.net.URI;
 
 @RestController
-@RequestMapping("/api/customers")
+@RequestMapping("/api/customer")
 public class CustomerTypeController {
 
     private static final Logger log = LoggerFactory.getLogger(CustomerTypeController.class);

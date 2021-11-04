@@ -28,12 +28,12 @@ public class CustomerController {
     @Autowired
     private CustomerServiceImpl service;
 
-    @GetMapping("/customers")
+    @GetMapping("/customer")
     public Flux<Customer> findAll(){
         return service.findAll();
     }
 
-    @PostMapping("/customers")
+    @PostMapping("/customer")
     public Mono<ResponseEntity<Customer>> create(@RequestParam String code,@RequestBody Mono<Customer> request){
         return request
                 .flatMap(customerCreate -> typeService.findByCode(code)
@@ -51,7 +51,7 @@ public class CustomerController {
                 .switchIfEmpty(Mono.just(new ResponseEntity<>(HttpStatus.BAD_REQUEST)));
     }
 
-    @PutMapping("/customers/{id}")
+    @PutMapping("/customer/{id}")
     public Mono<ResponseEntity<Customer>> update(@PathVariable String id, @RequestBody Customer customer){
         return service.findById(id).flatMap( c ->{
             c.setName(customer.getName());
@@ -63,7 +63,7 @@ public class CustomerController {
                 .body(c)).defaultIfEmpty(ResponseEntity.notFound().build());
     }
 
-    @DeleteMapping("/customers/{id}")
+    @DeleteMapping("/customer/{id}")
     public Mono<ResponseEntity<Customer>> delete(@PathVariable String id){
         return service.findById(id).flatMap(customer -> service.delete(customer))
                 .map(c -> ResponseEntity
@@ -78,7 +78,7 @@ public class CustomerController {
      * @param customerIdentityNumber the customer identity number
      * @return the mono
      */
-    @GetMapping("/customers/findCustomerCredit/{customerIdentityNumber}")
+    @GetMapping("/customer/findCustomerCredit/{customerIdentityNumber}")
     public Mono<ResponseEntity<Customer>> findCustomerCredit(@PathVariable String customerIdentityNumber){
         LOGGER.info("findByCustomerIdentityNumber: customerIdentityNumber={}", customerIdentityNumber);
         return service.findByCustomerIdentityNumber(customerIdentityNumber)

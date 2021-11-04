@@ -75,9 +75,7 @@ public class TransactionHandler {
      * @return the mono
      */
     public Mono<ServerResponse> newTransaction(ServerRequest request){
-
         Mono<Transaction> transactionMono = request.bodyToMono(Transaction.class);
-
         return transactionMono.flatMap( Request -> service.create(Request))
                 .flatMap( c -> ServerResponse
                         .ok()

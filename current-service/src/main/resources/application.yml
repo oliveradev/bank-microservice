@@ -1,18 +1,8 @@
-server:
-    port: 9004
-
 spring:
     application:
         name: current-service
     cloud:
         config:
-            import-check:
-                enabled: false
-    data:
-        mongo:
-            uri: mongodb+srv://admin:admin@bootcamp-project.7mgcx.mongodb.net/current-service?retryWrites=true&w=majority
-
-eureka:
-  client:
-    service-url:
-      defaultZone: http://localhost:8761/eureka
+            uri: http://localhost:8086
+            username: root
+            password: s3cr3t

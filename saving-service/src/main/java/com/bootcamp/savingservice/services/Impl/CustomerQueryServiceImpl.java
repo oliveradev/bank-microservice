@@ -24,13 +24,6 @@ public class CustomerQueryServiceImpl implements ICustomerRequestService {
 
     @Override
     public Mono<CustomerQuery> getCustomer(String customerIdentityNumber) {
-        /*return webClientBuilder
-                .build()
-                .get()
-                .uri("/findCustomerCredit/"+customerIdentityNumber)
-                .accept(MediaType.APPLICATION_JSON)
-                .exchangeToMono(clientResponse -> clientResponse.bodyToMono(CustomerQuery.class))
-                .doOnNext(c-> LOGGER.info("Customer Response: Customer= {}", c.getName()));*/
 
         return webClientBuilder
                 .build()
