@@ -1,10 +1,28 @@
+server:
+    port: 9100
 spring:
+  main:
+    web-application-type: REACTIVE
+  profiles:
+    active: dev
   application:
     name: gateway-service
   cloud:
-    config:
-      uri: http://localhost:8086 #Direccion donde se ejecuta config-service (Config Server)
-      username: root
-      password: s3cr3t
+    gateway:
+      discovery:
+        enabled: true
+        locator:
+          enabled: true
+      routes:
+        - id: customer-service
+          uri: lb://customer-service
+          predicates:
+            - Path=api/customer/**
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
 
 
