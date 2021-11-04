@@ -1,0 +1,20 @@
+server:
+    port: 9003
+spring:
+    cloud:
+        config:
+            enabled: false
+    application:
+        name: transaction-service
+    data:
+        mongodb:
+            database: transaction-service
+            host: localhost
+            username: admin
+            password: admin
+eureka:
+    client:
+        service-url:
+            defaultZone: http://localhost:8761/eureka
+    #instance:
+    #    instance-id: ${spring.application.name}:${random.uuid}
