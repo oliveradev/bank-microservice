@@ -1,4 +1,4 @@
-package com.bootcam.currentservice.document.dto;
+package com.bootcam.currentservice.models.dto;
 
 
 import lombok.AllArgsConstructor;
@@ -10,7 +10,11 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CustomerTypeRequest {
-    private String name;
-    private String code;
+public class CreditCard {
+
+    private String pan;
+
+    private CustomerDTO customer;
+
+    private boolean debtor;
 }

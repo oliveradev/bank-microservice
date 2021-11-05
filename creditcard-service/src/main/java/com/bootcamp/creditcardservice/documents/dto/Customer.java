@@ -1,4 +1,4 @@
-package com.bootcam.currentservice.document.dto;
+package com.bootcamp.creditcardservice.documents.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,9 +9,10 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CustomerRequest {
+public class Customer {
+
     private String name;
-    private String customerIdentityNumber;
     private String customerIdentityType;
-    private CustomerTypeRequest customerType;
+    private String customerIdentityNumber;
+    private CustomerType customerType;
 }

@@ -64,5 +64,12 @@ public interface ICustomerService {
      */
     public Mono<Customer> findByCustomerIdentityNumber(String customerIdentityNumber);
 
-
+    /**
+     * Update card mono.
+     *
+     * @param id       the id
+     * @param customer the customer
+     * @return the mono
+     */
+    public Mono<Customer> updateCard(String id, Customer customer);
 }

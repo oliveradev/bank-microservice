@@ -8,6 +8,8 @@ import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
 @Document(collection = "customer")
@@ -30,6 +32,16 @@ public class Customer {
     @Field(name = "customerIdentityNumber")
     @Indexed(unique = true)
     private String customerIdentityNumber;
+
+    @Size(max = 75)
+    @Email
+    @Field(name = "email")
+    private String email;
+    @Size(max = 9)
+    @Field(name = "phone")
+    private String phone;
+    @Field(name = "address")
+    private String address;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime dateOperation = LocalDateTime.now();

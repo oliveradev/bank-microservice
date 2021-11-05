@@ -85,4 +85,24 @@ public class CustomerController {
                 .map(saveCustomer -> ResponseEntity.ok(saveCustomer))
                 .defaultIfEmpty(ResponseEntity.notFound().build());
     }
+
+    /**
+     * Update cards mono.
+     *
+     * @param id       the id
+     * @param customer the customer
+     * @return the mono
+     */
+    @PutMapping(value = "/cards/{id}")
+    public Mono<ResponseEntity<Object>> updateCards(@PathVariable(value = "id") String id,
+                                                 @RequestBody Customer customer) {
+        LOGGER.info("update: {}", customer);
+        return service.updateCard(id, customer)
+                .flatMap(customerUpdate -> Mono.just(ResponseEntity.ok(customerUpdate))
+                        );
+    }
+
+
+
+
 }

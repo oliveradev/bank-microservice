@@ -28,7 +28,7 @@ public class CustomerQueryServiceImpl implements ICustomerRequestService {
         return webClientBuilder
                 .build()
                 .get()
-                .uri("localhost:9000/api/customers/findCustomerCredit/"+customerIdentityNumber)
+                .uri("localhost:9000/api/customer/findCustomerCredit/"+customerIdentityNumber)
                 .retrieve()
                 .bodyToMono(CustomerQuery.class)
                 .doOnNext(c->LOGGER.info("Customer Response: Customer={}", c.getName()));
