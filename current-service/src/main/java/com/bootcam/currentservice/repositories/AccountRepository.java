@@ -6,9 +6,10 @@ import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-
-@Repository
-public interface AccountRepository extends ReactiveMongoRepository<Account, String> {
+/**
+ * The interface Account repository.
+ */
+public interface AccountRepository extends ReactiveMongoRepository<Account,String> {
     /**
      * Find by customer identity number mono.
      *
@@ -17,13 +18,6 @@ public interface AccountRepository extends ReactiveMongoRepository<Account, Stri
      */
     Flux<Account> findAllByCustomerIdentityNumber(String customerIdentityNumber);
 
-    /**
-     *
-     * @param customerIdentityNumber
-     * @return
-     */
-
-    Mono<Account> validateIdentityNumber(String customerIdentityNumber);
 
     Mono<Account> findByCustomerIdentityNumber(String customerIdentityNumber);
     /**
@@ -32,5 +26,5 @@ public interface AccountRepository extends ReactiveMongoRepository<Account, Stri
      * @param accountNumber the account number
      * @return the mono
      */
-    Mono<Account> findByAccountNumber(String accountNumber);
+    public Mono<Account> findByAccountNumber(String accountNumber);
 }

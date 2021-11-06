@@ -9,15 +9,16 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
 public class Firmante {
+
     @NotNull
     @NotBlank
     private String name;
+
     @NotNull
     @NotBlank
     private String dni;
+
     private String phone;
+
 }

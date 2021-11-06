@@ -74,11 +74,8 @@ public class DepositHandler {
                                 LOGGER.info("La commission es: " + account.getCommission());
                                 account.setAmount(account.getAmount()+depositRequest.getAmount()-account.getCommission());
                             }
-                            Mono<DebitAccountDTO> cuentaActualizada = accountService.updateDebit(account);
-                            return cuentaActualizada.map( c ->{
-                                LOGGER.info(c.toString());
-                                return c;
-                            });
+                            LOGGER.info("El id del débito es: " + account.getId());
+                            return accountService.updateDebit(account.getTypeAccount(),account);
                         })
                         .flatMap(accountUpdate -> {
                             LOGGER.info("-----------------------");

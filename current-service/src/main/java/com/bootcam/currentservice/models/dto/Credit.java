@@ -18,3 +18,4 @@ public class Credit {
     private boolean debtor;
 }
 
+

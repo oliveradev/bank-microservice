@@ -9,10 +9,8 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
 public class Titular {
+
     @NotNull
     @NotBlank
     private String name;
@@ -22,4 +20,6 @@ public class Titular {
     private String dni;
 
     private String debitCard;
+
+
 }

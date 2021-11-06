@@ -4,8 +4,10 @@ import com.bootcam.currentservice.models.entities.Account;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-public interface IAccountService extends ICrudService<Account, String> {
-
+/**
+ * The interface Account service.
+ */
+public interface IAccountService extends ICrudService<Account,String> {
     /**
      * Find by customer identity number mono.
      *
@@ -32,3 +34,4 @@ public interface IAccountService extends ICrudService<Account, String> {
      */
     public Mono<Account> findByAccountNumber(String accountNumber);
 }
+

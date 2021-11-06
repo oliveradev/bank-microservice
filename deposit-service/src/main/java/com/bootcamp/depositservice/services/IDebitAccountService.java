@@ -16,9 +16,9 @@ public interface IDebitAccountService {
     /**
      * Update debit mono.
      *
-     * @param typeDebit the typeDebit
+     * @param typeofdebit the typeDebit
      * @param account     the account
      * @return the mono
      */
-    public Mono<DebitAccountDTO> updateDebit(DebitAccountDTO account);
+    public Mono<DebitAccountDTO> updateDebit(String typeofdebit, DebitAccountDTO account);
 }

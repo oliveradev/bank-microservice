@@ -14,15 +14,14 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-
-@Document(collection = "current-service")
+@Document(collection = "accountCurrent")
 @Setter
 @Getter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-
 public class Account {
+
     @Id
     private String id;
 
@@ -55,3 +54,4 @@ public class Account {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime dateOperation = LocalDateTime.now();
 }
+

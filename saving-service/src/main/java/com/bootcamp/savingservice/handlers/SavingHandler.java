@@ -3,8 +3,10 @@ package com.bootcamp.savingservice.handlers;
 import com.bootcamp.savingservice.documents.dto.CustomerCommand;
 import com.bootcamp.savingservice.documents.dto.CustomerQuery;
 import com.bootcamp.savingservice.documents.entities.Account;
+import com.bootcamp.savingservice.services.ICreditService;
 import com.bootcamp.savingservice.services.ICustomerRequestService;
 import com.bootcamp.savingservice.services.ISavingService;
+import com.netflix.discovery.converters.Auto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +32,8 @@ public class SavingHandler {
     @Autowired
     private ISavingService service;
 
+    @Autowired
+    private ICreditService creditService;
     /**
      * Find all mono.
      *
@@ -73,15 +77,28 @@ public class SavingHandler {
                             accountCreate.setTypeAccount("SAVING_ACCOUNT");
                             accountCreate.setMaxLimitMovementPerMonth(accountCreate.getMaxLimitMovementPerMonth());
                             accountCreate.setMovementPerMonth(0);
-                            return  Mono.just(accountCreate);
+                            return  creditService.validateDebtorCredit(accountCreate.getCustomerIdentityNumber())
+                                    .flatMap(debtor->{
+                                        if(debtor == true){
+                                            return Mono.empty();
+                                        }else return service.validateCustomerIdentityNumber(accountCreate.getCustomerIdentityNumber());
+                                    })
+                                    .flatMap(accountFound -> {
+                                        if(accountFound.getCustomerIdentityNumber() != null){
+                                            LOGGER.info("La cuenta encontrada es: " + accountFound.getCustomerIdentityNumber());
+                                            return Mono.empty();
+                                        }else{
+                                            LOGGER.info("No se encontró la cuenta ");
+                                            return service.create(accountCreate);
+                                        }
+                                    });
                         })
-                ).
-                flatMap(account -> service.create(account))
-                .flatMap(c -> ServerResponse
+                )
+                .flatMap( c -> ServerResponse
                 .ok()
                 .contentType(MediaType.APPLICATION_JSON)
-                .body(BodyInserters.fromValue(c)))
-                .switchIfEmpty(ServerResponse.noContent().build());
+                .body(BodyInserters.fromValue(c))
+                ).switchIfEmpty(ServerResponse.badRequest().build());
     }
     /**
      * Find by customer identity number mono.
