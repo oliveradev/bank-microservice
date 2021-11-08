@@ -74,7 +74,7 @@ public class SavingHandler {
                             accountCreate.setCustomer(CustomerCommand.builder()
                                     .name(customer.getName()).code(customer.getCustomerType().getCode())
                                     .customerIdentityNumber(customer.getCustomerIdentityNumber()).build());
-                            accountCreate.setTypeAccount("SAVING_ACCOUNT");
+                            accountCreate.setTypeOfAccount("SAVING_ACCOUNT");
                             accountCreate.setMaxLimitMovementPerMonth(accountCreate.getMaxLimitMovementPerMonth());
                             accountCreate.setMovementPerMonth(0);
                             return  creditService.validateDebtorCredit(accountCreate.getCustomerIdentityNumber())

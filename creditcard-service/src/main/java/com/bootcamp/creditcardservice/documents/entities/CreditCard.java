@@ -37,7 +37,7 @@ public class CreditCard {
     private LocalDateTime dateOperation = LocalDateTime.now();
 
     @NotNull
-    private String cardBran;
+    private String cardBrand;
 
     private double balanceAmount;
 

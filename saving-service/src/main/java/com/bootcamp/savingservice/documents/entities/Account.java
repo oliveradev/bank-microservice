@@ -25,7 +25,7 @@ public class Account {
 
     private String accountNumber;
 
-    private String typeAccount;
+    private String typeOfAccount;
 
     private double amount;
 
