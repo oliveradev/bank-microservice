@@ -50,24 +50,26 @@ public class ProductReportHandler {
                             if(!fixedTermAccount.equals(null)){
                                 productreport.getProductos().add(fixedTermAccount);
                             }
-                            return service.getCurrentAccount(customerIdentityNumber);
+                            return service.getCurrentAccount(customerIdentityNumber).collectList();
                         })
                         .flatMap(currentAccount -> {
-                            if(!currentAccount.equals(null)){
+                            if(currentAccount.get(0).getAccountNumber()!=null){
                                 productreport.getProductos().add(currentAccount);
                             }
                             return service.getCreditCard(customerIdentityNumber);
                         })
                         .flatMap(creditcard -> {
                             if(!creditcard.getPan().equals(null)){
-                                creditcard.setTypeOfAccount("CREDIT");
+                                creditcard.setTypeOfAccount("CREDITCARD");
                                 productreport.getProductos().add(creditcard);
                             }
-                            return service.getCredit(customerIdentityNumber);
+                            return service.getCredit(customerIdentityNumber).collectList();
                         })
                         .flatMap(credit -> {
-                            if(!credit.getContractNumber().equals(null)){
-                                credit.setTypeOfAccount("CREDIT");
+                            if(credit.get(0).getContractNumber().equals(null)){
+                                credit.stream().forEach(c->{
+                                   c.setTypeOfAccount("CREDIT");
+                                });
                                 productreport.getProductos().add(credit);
                             }
                             return Mono.just(productreport);
