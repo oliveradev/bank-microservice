@@ -16,4 +16,5 @@ import java.util.List;
 public class Productreport {
     private CustomerDTO customer;
     private List<Object> productos = new ArrayList<>();
+
 }
