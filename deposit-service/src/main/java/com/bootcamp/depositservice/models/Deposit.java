@@ -34,7 +34,7 @@ public class Deposit {
      * @param accountType is in
      *                    fo Account
      */
-    private String TypeAccount;
+    private String typeAccount;
     /**
      * @param accountNumber is info Account
      */
