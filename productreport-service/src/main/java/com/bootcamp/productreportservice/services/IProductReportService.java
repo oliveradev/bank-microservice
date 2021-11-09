@@ -7,9 +7,9 @@ public interface IProductReportService {
 
     Mono<CustomerRequest> getCustomer(String customerIdentityNumber);
     Mono<Credit> getCredit(String customerIdentityNumber);
-    Mono<CreditCard> getCreditCard(String customerIdentityNumber);
+    Mono<Creditcard> getCreditCard(String customerIdentityNumber);
     Mono<SavingAccount> getSavingAccount(String customerIdentityNumber);
-    Mono<CurrentAccount> getCurrentAccount(String customerIdentityNumber);
+    Mono<Current> getCurrentAccount(String customerIdentityNumber);
     Mono<FixedTermAccount> getFixedTermAccount(String customerIdentityNumber);
 
 }

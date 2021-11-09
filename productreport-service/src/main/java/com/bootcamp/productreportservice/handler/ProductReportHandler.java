@@ -1,8 +1,8 @@
 package com.bootcamp.productreportservice.handler;
 
 
-import com.bootcamp.productreportservice.documents.dto.CustomerCommand;
-import com.bootcamp.productreportservice.documents.entities.ProductReport;
+import com.bootcamp.productreportservice.documents.dto.CustomerDTO;
+import com.bootcamp.productreportservice.documents.entities.Productreport;
 import com.bootcamp.productreportservice.services.IProductReportService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,51 +24,60 @@ public class ProductReportHandler {
     @Autowired
     private IProductReportService service;
 
+
     public Mono<ServerResponse> generateReportCustomer(ServerRequest request) {
-        ProductReport reportProduct = new ProductReport();
+        Productreport report = new Productreport();
         String customerIdentityNumber = request.pathVariable("customerIdentityNumber");
-        LOGGER.info("El customerIdentityNumber es " + customerIdentityNumber);
-        return Mono.just(reportProduct).flatMap(report -> service.getCustomer(customerIdentityNumber)
-                        .flatMap(customer -> {
-                            reportProduct.setCustomer(CustomerCommand.builder()
-                                    .name(customer.getName()).code(customer.getCustomerType().getCode())
-                                    .customerIdentityNumber(customer.getCustomerIdentityNumber()).build());
+        return Mono.just(report)
+                .flatMap(productreport -> service.getCustomer(customerIdentityNumber)
+                        .flatMap(customerRequest -> {
+                            productreport.setCustomer(
+                                    CustomerDTO
+                                            .builder()
+                                            .name(customerRequest.getName())
+                                            .customerIdentityNumber(customerRequest.getCustomerIdentityNumber())
+                                            .code(customerRequest.getCustomerType().getCode())
+                                            .build());
                             return service.getSavingAccount(customerIdentityNumber);
-                        }).flatMap(savingAccount -> {
-                            if(savingAccount.getAccountNumber()!= null) {
-                                reportProduct.getProductos().add(savingAccount);
+                        })
+                        .flatMap(savingAccount -> {
+                            if(!savingAccount.equals(null)){
+                                productreport.getProductos().add(savingAccount);
                             }
                             return service.getFixedTermAccount(customerIdentityNumber);
-                        }).flatMap(fixedtermaccount -> {
-                            if(fixedtermaccount.getAccountNumber()!= null) {
-                                reportProduct.getProductos().add(fixedtermaccount);
+                        })
+                        .flatMap(fixedTermAccount -> {
+                            if(!fixedTermAccount.equals(null)){
+                                productreport.getProductos().add(fixedTermAccount);
                             }
                             return service.getCurrentAccount(customerIdentityNumber);
-                        }).flatMap(currentaccount -> {
-                            if(currentaccount.getAccountNumber()!= null) {
-                                reportProduct.getProductos().add(currentaccount);
+                        })
+                        .flatMap(currentAccount -> {
+                            if(!currentAccount.equals(null)){
+                                productreport.getProductos().add(currentAccount);
                             }
                             return service.getCreditCard(customerIdentityNumber);
-                        }).flatMap(creditcard -> {
-                            if(creditcard.getPan()!= null) {
-                                creditcard.setTypeOfAccount("CREDITCARD");
-                                reportProduct.getProductos().add(creditcard);
+                        })
+                        .flatMap(creditcard -> {
+                            if(!creditcard.getPan().equals(null)){
+                                creditcard.setTypeOfAccount("CREDIT");
+                                productreport.getProductos().add(creditcard);
                             }
-                            return service.getCredit(customerIdentityNumber));
+                            return service.getCredit(customerIdentityNumber);
                         })
                         .flatMap(credit -> {
-                            if(credit.getContractNumber() != null) {
-                                    credit.setTypeOfAccount("CREDIT");
-                                reportProduct.getProductos().add(credit);
+                            if(!credit.getContractNumber().equals(null)){
+                                credit.setTypeOfAccount("CREDIT");
+                                productreport.getProductos().add(credit);
                             }
-
-                            return Mono.just(reportProduct);
+                            return Mono.just(productreport);
                         }))
-                .flatMap(c -> ServerResponse
+                .flatMap(c-> ServerResponse
                         .ok()
                         .contentType(MediaType.APPLICATION_JSON)
                         .body(BodyInserters.fromValue(c)))
                 .switchIfEmpty(ServerResponse.notFound().build());
     }
+
 
 }

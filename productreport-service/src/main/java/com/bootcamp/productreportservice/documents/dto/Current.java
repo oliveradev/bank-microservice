@@ -9,8 +9,14 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CustomerCommand {
-    private String name;
-    private String code;
-    private String customerIdentityNumber;
+public class Current {
+    private String typeOfAccount;
+
+    private String accountNumber;
+
+    private double amount;
+
+    private int maxLimitMovementPerMonth;
+
+    private int movementPerMonth;
 }

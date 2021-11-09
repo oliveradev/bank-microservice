@@ -3,9 +3,11 @@ package com.bootcamp.productreportservice.services.Impl;
 import com.bootcamp.productreportservice.documents.dto.*;
 import com.bootcamp.productreportservice.services.IProductReportService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
+@Service
 public class ProductReportServiceImpl implements IProductReportService {
 
     @Autowired
@@ -22,7 +24,7 @@ public class ProductReportServiceImpl implements IProductReportService {
     }
 
     @Override
-    public Mono<CreditCard> getCreditCard(String customerIdentityNumber) {
+    public Mono<Creditcard> getCreditCard(String customerIdentityNumber) {
         return null;
     }
 
@@ -32,7 +34,7 @@ public class ProductReportServiceImpl implements IProductReportService {
     }
 
     @Override
-    public Mono<CurrentAccount> getCurrentAccount(String customerIdentityNumber) {
+    public Mono<Current> getCurrentAccount(String customerIdentityNumber) {
         return null;
     }
 

@@ -9,16 +9,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CreditCard {
-    private String typeOfAccount;
-
-    private String pan;
-
-    private double creditLimit;
-
-    private double totalConsumption;
-
-    private double balanceAmount;
-
-    private boolean debtor;
+public class CustomerDTO {
+    private String name;
+    private String code;
+    private String customerIdentityNumber;
 }

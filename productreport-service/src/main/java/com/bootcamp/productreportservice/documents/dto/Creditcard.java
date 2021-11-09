@@ -9,14 +9,16 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CurrentAccount {
+public class Creditcard {
     private String typeOfAccount;
 
-    private String accountNumber;
+    private String pan;
 
-    private double amount;
+    private double creditLimit;
 
-    private int maxLimitMovementPerMonth;
+    private double totalConsumption;
 
-    private int movementPerMonth;
+    private double balanceAmount;
+
+    private boolean debtor;
 }
