@@ -1,6 +1,9 @@
 package com.bootcamp.transactionservice.config;
 
 import com.bootcamp.transactionservice.handlers.TransactionHandler;
+import com.bootcamp.transactionservice.services.Impl.TransactionServiceImpl;
+import org.springdoc.core.annotations.RouterOperation;
+import org.springdoc.core.annotations.RouterOperations;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.function.server.RouterFunction;
@@ -18,6 +21,10 @@ public class RouterConfig {
      * @param transactionHandler the transaction handler
      * @return the router function
      */
+    @RouterOperations({ @RouterOperation(path = "/api/transaction", beanClass = TransactionServiceImpl.class, beanMethod = "getAll"),
+            @RouterOperation(path = "/api/transaction/{identityNumber}", beanClass = TransactionServiceImpl.class, beanMethod = "getByIdentityNumber"),
+            @RouterOperation(path = "/api/transaction", beanClass = TransactionServiceImpl.class, beanMethod = "save"),
+            @RouterOperation(path = "/api/transaction/commission/{identityNumber}", beanClass = TransactionServiceImpl.class, beanMethod = "getAllCommissionsByIdentityNumber") })
     @Bean
     public RouterFunction<ServerResponse> routes(TransactionHandler transactionHandler){
 
