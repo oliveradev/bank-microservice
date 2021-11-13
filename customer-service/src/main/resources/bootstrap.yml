@@ -6,6 +6,13 @@ spring:
             uri: http://localhost:8086
             username: root
             password: s3cr3t
+    kafka:
+        consumer:
+            bootstrap-servers: localhost:9092
+            group-id: "my_group_id"
+            auto-offset-reset: earliest
+            key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+            value-deserializer: bootcamp.customerservice.customerservice.kafka.CustomerRequestDeserializer
 
 springdoc:
     api-docs:

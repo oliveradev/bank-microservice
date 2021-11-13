@@ -1,0 +1,19 @@
+server:
+    port: 9013
+
+spring:
+    eureka:
+        client:
+            service-url:
+                defaultZone: http://localhost:8761/eureka
+    application:
+        name: yanki-service
+    data:
+        mongodb:
+            uri: mongodb+srv://admin:admin12345@cluster0.7mgcx.mongodb.net/yanki-service?retryWrites=true&w=majority
+    kafka:
+        producer:
+            bootstrap-servers: localhost:9092
+            key-serializer: org.apache.kafka.common.serialization.StringSerializer
+            value-serializer: com.bootcamp.yankiservice.kafka.CustomerCommandSerializer
+
